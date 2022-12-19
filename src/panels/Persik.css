@@ -1,0 +1,25 @@
+.oracle-cell {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 10%;
+  color: white;
+  font-size: larger;
+  text-align: center;
+}
+
+.padded-div {
+  padding: 10px;
+}
+
+.result-sticker {
+  padding-top: 30%;
+  width: 60%;
+  height: 60%;
+  padding-left: 20%;
+  transition: 0.1s;
+}
+
+.vkuiButton__content {
+  color: white;
+}
