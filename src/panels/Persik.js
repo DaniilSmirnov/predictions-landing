@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import htmlToImage from 'dom-to-image';
 
-import {Button, ButtonGroup, Div, Group, Panel, PanelHeader, PanelHeaderBack} from '@vkontakte/vkui';
+import {Button} from '@vkontakte/vkui';
 
 import './Persik.css';
 import bridge from "@vkontakte/vk-bridge";
@@ -96,12 +96,8 @@ function getRandomInt(max) {
 }
 
 function generateStory(sticker, oracle){
-	let storyWrapper = document.createElement("div");
-	storyWrapper.id = "storyWrapper";
-	document.body.append(storyWrapper);
-
-	ReactDOM.render(<StoryCanvas sticker={sticker} oracle={oracle}/>, storyWrapper)
-	htmlToImage.toJpeg(document.getElementById('storyCanvas'), {quality: 0.7})
+	ReactDOM.render(<StoryCanvas sticker={sticker} oracle={oracle}/>, document.getElementById('storyWrapper'))
+	const anal = () => htmlToImage.toJpeg(document.getElementById('storyCanvas'), {quality: 0.7})
 		.then(async function (dataUrl) {
 			await bridge.send("VKWebAppShowStoryBox", {
 				"background_type": "image",
@@ -113,17 +109,18 @@ function generateStory(sticker, oracle){
 					"url": "https://vk.com/app51441454"
 				}
 			}).then(() => {
-				ReactDOM.unmountComponentAtNode(storyWrapper);
 				//changeSnackbar("История успешно опубликована!")
 			})
 				.catch((e) => {
-					ReactDOM.unmountComponentAtNode(storyWrapper);
 					if (e.error_data.error_reason !== "User denied") {
 						//changeSnackbar("Произошла проблема при публикации истории. Попробуй еще раз!")
 					}
+				})
+				.finally(() => {
+					ReactDOM.unmountComponentAtNode(storyWrapper);
 				});
 		});
-
+	setTimeout(anal, 1000);
 }
 
 const Persik = props => (
@@ -145,11 +142,10 @@ const Persik = props => (
 				<Button
 					size="l" appearance="accent" stretched mode="secondary"
 					onClick={() => {
-						console.log('clicked')
-						//generateStory(
-						//	document.getElementsByClassName('result-sticker')[0].value,
-						//	document.getElementsByClassName('oracle-cell')[0].value
-						//)
+						generateStory(
+							document.getElementsByClassName('result-sticker')[0].getAttribute('src'),
+							document.getElementsByClassName('oracle-cell')[0].textContent
+						)
 					}}
 				>
 					Рассказать друзьям

@@ -8,6 +8,17 @@
   text-align: center;
 }
 
+.canvas-oracle-cell {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 10%;
+  color: white;
+  text-align: center;
+  font-size: 32px;
+  font-family:-apple-system, BlinkMacSystemFont, Roboto, 'Segoe UI', 'Segoe WP', 'Helvetica Neue', 'Lucida Grande', Verdana, Tahoma, Arial, sans-serif; ;
+}
+
 .padded-div {
   padding: 10px;
 }
@@ -15,8 +26,6 @@
 .result-sticker {
   padding-top: 30%;
   width: 60%;
-  height: 60%;
-  padding-left: 20%;
   transition: 0.1s;
 }
 
